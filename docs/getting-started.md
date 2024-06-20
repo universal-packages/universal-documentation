@@ -48,7 +48,7 @@ export default class ExampleApp extends CoreApp {
 }
 ```
 
-This is a simple example of a core app, it has a `run` method that will be called when the app starts and a `stop` method that will be called when the app stops. The `run` method will create a timeout that will never end, and the `stop` method will clear this timeout.
+This is a simple example of a core app, it has a `run` method that will be called when the app starts and a `stop` method that will be called when a stop request has been made. The `run` method will create a timeout that will never end, and the `stop` method will clear this timeout.
 
 This tell us that apps are meant to be kept alive and running, and that there should be a way to stop them.
 
