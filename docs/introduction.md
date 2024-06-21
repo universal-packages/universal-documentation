@@ -1,7 +1,7 @@
 ---
-slug: "/introduction"
-title: "Introduction"
-navigationId: 0
+slug: /introduction
+title: Introduction
+navigationId: introduction
 ---
 
 # Introduction

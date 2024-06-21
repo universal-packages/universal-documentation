@@ -1,26 +1,30 @@
 ---
-slug: /getting-started
-title: Getting Started
-navigationId: getting-started
+slug: /typescript
+title: Typescript
+navigationId: typescript
 ---
 
-# Getting Started
+# Typescript
 
-Lets create our first universal core application using the universal packages cli. Make sure you have a version of node equal or greater than `18` installed in your machine.
+All universal packages are written in typescript, all packages are transpiled to javascript and the types are included in the package. This means that you can use typescript in your universal core apps.
 
-```shell
-npx @universal-packages/core init my-app
+> This site guides offers code examples in typescript and javascript take a look at the controls with the **TS** and **JS** labels.
+
+To generate a typescript project you can use the `--typescript` flag when creating a new project.
+
+```bash
+npx @universal-packages/core init my-app --typescript
 ```
 
 This will install the universal core global cli and create a new project in the `my-app` directory. Now lets navigate to the project directory and start the example app.
 
-```shell
+```bash
 cd my-app
 ```
 
 Now we can start the example app using the following command:
 
-```shell
+```bash
 npm start
 ```
 
@@ -28,21 +32,36 @@ You will be able to see some logs in the console and the app will be running, th
 
 Lest take a look at what we are running, check the example app file.
 
-```javascript:title=src/Example.app.js
+```typescript:title=src/Example.app.ts
 import { CoreApp } from "@universal-packages/core";
 
-export default class ExampleApp extends CoreApp {
-  static appName = "example-app";
-  static description = "This app exemplify how the life cycle of a core app goes";
+interface ExampleAppConfig {
+  cores: number;
+  ram: number;
+}
 
-  timeout = 0;
+interface ExampleAppArgs {
+  p: number;
+  port: number;
+}
 
-  async run() {
-    this.timeout = setTimeout(() => {}, 999999999);
+export default class ExampleApp extends CoreApp<ExampleAppConfig,ExampleAppArgs> {
+  public static readonly appName = "example-app";
+  public static readonly description = "This app exemplify how the life cycle of a core app goes";
+
+  private timeout: NodeJS.Timeout;
+
+  public async run(): Promise<void> {
+    this.timeout = setTimeout((): void => {}, 999999999);
+    core.logger.log({
+      level: "INFO",
+      title: "Example app has started",
+      category: "APP",
+      metadata: this.config,
+    });
   }
 
-
-  async stop() {
+  public async stop(): Promise<void> {
     clearTimeout(this.timeout);
   }
 }
