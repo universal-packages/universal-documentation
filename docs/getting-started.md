@@ -6,10 +6,16 @@ navigationId: getting-started
 
 # Getting Started
 
+First lets install the universal core cli by installing it globally.
+
+```shell
+npm install -g @universal-packages/core
+```
+
 Lets create our first universal core application using the universal packages cli. Make sure you have a version of node equal or greater than `18` installed in your machine.
 
 ```shell
-npx @universal-packages/core init my-app
+ucore new my-app
 ```
 
 This will install the universal core global cli and create a new project in the `my-app` directory. Now lets navigate to the project directory and start the example app.

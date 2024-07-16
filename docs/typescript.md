@@ -6,14 +6,14 @@ navigationId: typescript
 
 # Typescript
 
-All universal packages are written in typescript, all packages are transpiled to javascript and the types are included in the package. This means that you can use typescript in your universal core apps.
+All universal packages are written in typescript, all packages are transpiled to javascript and the types are included in the package. This means that you can use typescript or Javascript in your universal core apps.
 
-> This site guides offers code examples in typescript and javascript take a look at the controls with the **TS** and **JS** labels.
+> This site guides offers code examples in typescript and javascript, take a look at the controls with the **TS** and **JS** labels.
 
 To generate a typescript project you can use the `--typescript` flag when creating a new project.
 
 ```bash
-npx @universal-packages/core init my-app --typescript
+ucore new my-app --typescript
 ```
 
 This will install the universal core global cli and create a new project in the `my-app` directory. Now lets navigate to the project directory and start the example app.
