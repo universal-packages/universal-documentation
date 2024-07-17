@@ -14,9 +14,21 @@ npm install -g @universal-packages/core
 
 Lets create our first universal core application using the universal packages cli. Make sure you have a version of node equal or greater than `18` installed in your machine.
 
+<js-only>
+
 ```shell
 ucore new my-app
 ```
+
+</js-only>
+
+<ts-only>
+
+```shell
+ucore new my-app --typescript
+```
+
+</ts-only>
 
 This will install the universal core global cli and create a new project in the `my-app` directory. Now lets navigate to the project directory and start the example app.
 
@@ -34,7 +46,7 @@ You will be able to see some logs in the console and the app will be running, th
 
 Lest take a look at what we are running, check the example app file.
 
-```javascript:title=src/Example.app.js
+```js:title=src/Example.app.js
 import { CoreApp } from "@universal-packages/core";
 
 export default class ExampleApp extends CoreApp {
@@ -49,6 +61,41 @@ export default class ExampleApp extends CoreApp {
 
 
   async stop() {
+    clearTimeout(this.timeout);
+  }
+}
+```
+
+```ts:title=src/Example.app.ts
+import { CoreApp } from "@universal-packages/core";
+
+interface ExampleAppConfig {
+  cores: number;
+  ram: number;
+}
+
+interface ExampleAppArgs {
+  p: number;
+  port: number;
+}
+
+export default class ExampleApp extends CoreApp<ExampleAppConfig,ExampleAppArgs> {
+  public static readonly appName = "example-app";
+  public static readonly description = "This app exemplify how the life cycle of a core app goes";
+
+  private timeout: NodeJS.Timeout;
+
+  public async run(): Promise<void> {
+    this.timeout = setTimeout((): void => {}, 999999999);
+    core.logger.log({
+      level: "INFO",
+      title: "Example app has started",
+      category: "APP",
+      metadata: this.config,
+    });
+  }
+
+  public async stop(): Promise<void> {
     clearTimeout(this.timeout);
   }
 }
