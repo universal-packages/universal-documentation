@@ -18,15 +18,21 @@ npm install @universal-packages/core-typeorm
 
 Universal core packages are equipped with an initializer to prepare everything for you. You can initialize the universal-core-typeorm package by running the following command:
 
+<js-only>
+
 ```bash
 ucore initialize typeorm
 ```
 
-Or if you are using typescript:
+</js-only>
+
+<ts-only>
 
 ```bash
 ucore initialize typeorm --typescript
 ```
+
+</ts-only>
 
 This has populated our project with configuration files and the common folder structure for typeorm. It also by default prepares the `postgres` driver for us.
 
@@ -54,11 +60,23 @@ As you can see it has automatically set our type to the given type at initializa
 
 If you want to use a different driver, you can specify it by adding the `--type` flag:
 
+<js-only>
+
 ```bash
 ucore initialize typeorm --type mysql
 ```
 
-## Datebase creation
+</js-only>
+
+<ts-only>
+
+```bash
+ucore initialize typeorm --type mysql --typescript
+```
+
+</ts-only>
+
+## Database creation
 
 Core typeorm offers a command to create the database for you. You can run the following command:
 

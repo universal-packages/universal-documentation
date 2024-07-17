@@ -8,24 +8,26 @@ navigationId: todo-list-introduction
 
 In this tutorial, we will create a TodoList app from the ground up, we will create the database models, an express server using convenient controllers, and a frontend to interact with the API.
 
-> If you haven't follow the [Getting Started](/documentation/getting-started) tutorial, please do so before starting this.
+> If you haven't follow the [Getting Started](/documentation/getting-started) tutorial, please do so you gen familiar with the universal core apps structure.
 
-> This tutorial work the same for typescript amd JS projects, if you are using typescript, make sure to add the `--typescript` flag to the commands.
+> This tutorial is offered in typescript and javascript, take a look at the controls with the **TS** and **JS** labels.
 
 ## Project initialization
 
 Lest create our brand new project using the universal-cli:
 
+<js-only>
+
 ```bash
 ucore new todo-list
 ```
 
-or
+</js-only>
+
+<ts-only>
 
 ```bash
 ucore new todo-list --typescript
 ```
 
-## Testing
-
-For testing we will use [Jest](https://jestjs.io/), universal packages provide jest extensions to test universal packages functionality, this tutorial will go through the process of testing the universal core app.
+</ts-only>
