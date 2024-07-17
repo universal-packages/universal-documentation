@@ -110,6 +110,4 @@ You can now query the database to see if the item was saved.
 await TodoItem.find()
 ```
 
-## Summary
-
-In this part of the tutorial, we have created a new entity to represent the items in our TodoList application. We have also used the Universal Core console to test our new entity.
+> Checkout the [TypeORM documentation](https://typeorm.io/#/) for more information about entities and how to interact with them.

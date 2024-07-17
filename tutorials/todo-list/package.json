@@ -8,12 +8,13 @@
     "sync-files": "rsync -a --prune-empty-dirs --include '*/' --exclude '*.js' src/ build/",
     "babel-build": "babel src -d build",
     "build": "npm run babel-build && npm run sync-files",
-    "start": "ucore run example-app",
+    "start": "ucore run express-controllers",
     "test": "jest --watch"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.24.7",
     "@universal-packages/core": "1.26.3",
+    "@universal-packages/core-express-controllers": "^1.9.8",
     "@universal-packages/core-typeorm": "^1.8.3",
     "pg": "^8.12.0"
   },
