@@ -1,0 +1,32 @@
+default:
+  dataSource:
+    type: postgres
+    entities:
+      - ./src/entity/*.js
+    migrations:
+      - ./src/migration/*.js
+  entitiesDir: ./src/entity
+  migrationsDir: ./src/migration
+  subscribersDir: ./src/subscriber
+
+development:
+  dataSource:
+    database: todo-list-development
+    synchronize: true
+    logging: true
+
+test:
+  dataSource:
+    database: todo-list-test-{{ JEST_WORKER_ID }}
+    synchronize: true
+    logging: false
+
+production:
+  dataSource:
+    database: todo-list-production
+    entities:
+      - ./entity/*.js
+    migrations:
+      - ./migration/*.js
+    synchronize: false
+    logging: true

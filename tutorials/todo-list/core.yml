@@ -1,0 +1,8 @@
+development:
+  apps:
+    watcher:
+      enabled: true
+      ignore:
+        - tests
+  logger:
+    level: TRACE
