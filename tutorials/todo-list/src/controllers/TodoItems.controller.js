@@ -35,7 +35,7 @@ export default class TodoItemsController extends BaseController {
       });
       if (this.request.body.content)
         todoItem.content = this.request.body.content;
-      if (this.request.body.done) todoItem.done = this.request.body.done;
+      if (this.request.body.done !== undefined) todoItem.done = this.request.body.done;
       await todoItem.save();
 
       return this.status("OK").json({ todoItem });

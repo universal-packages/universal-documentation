@@ -3,7 +3,6 @@
 # Ignorable
 /node_modules
 .cache/
-public
 src/gatsby-types.d.ts
 /coverage
 /dist

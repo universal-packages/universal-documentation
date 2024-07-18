@@ -1,5 +1,6 @@
 default:
   appLocation: './src'
+  cors: true
 
 development:
   host: localhost

@@ -38,6 +38,31 @@ Now we have the common express controllers directory structure in our project as
 
 In the previous chapter when we initialized TypeORM we got the config file `typeorm-module.yaml`, the `module` suffix is doe to the fact that `core-typeorm` provides as `CoreModule` that can be used across the applications, but in the case of `core-express-controllers` it provides a `CoreApp` that runs a http server and make out controller's endpoints available. Thats why its configuration files reflects this difference in purpose.
 
+## Configuring CORS
+
+Lets configure CORS in our `express-controllers-app.yaml` file:
+
+```yaml:title=src/config/express-controllers-app.yaml
+cors: true
+```
+
+You can also configure the allowed origins, methods and headers:
+
+```yaml:title=src/config/express-controllers-app.yaml
+cors:
+  origin: "*"
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+  headers: "Origin, X-Requested-With, Content-Type, Accept"
+```
+
+and install the `cors` package:
+
+```bash
+npm install cors
+```
+
+This is necessary to allow our frontend to make requests to our backend since they are running on different ports and that counts as a cross-origin request.
+
 ## TodoItems Controller
 
 <js-only>
@@ -198,7 +223,7 @@ export default class TodoItemsController extends BaseController {
       });
       if (this.request.body.content)
         todoItem.content = this.request.body.content;
-      if (this.request.body.done) todoItem.done = this.request.body.done;
+      if (this.request.body.done !== undefined) todoItem.done = this.request.body.done;
       await todoItem.save();
 
       return this.status("OK").json({ todoItem });

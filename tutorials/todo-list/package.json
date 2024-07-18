@@ -14,8 +14,10 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.24.7",
     "@universal-packages/core": "1.26.3",
+    "@universal-packages/core-create-react-app": "^1.1.5",
     "@universal-packages/core-express-controllers": "^1.9.8",
     "@universal-packages/core-typeorm": "^1.8.3",
+    "cors": "^2.8.5",
     "pg": "^8.12.0"
   },
   "devDependencies": {

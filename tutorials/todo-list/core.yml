@@ -4,5 +4,8 @@ development:
       enabled: true
       ignore:
         - tests
+        - react-apps
   logger:
     level: TRACE
+  terminalPresenter:
+    framesPerSecond: 30
