@@ -1,11 +1,16 @@
 import React from "react";
+import { TodoItemEntry } from "./TodoItem";
 
 const API_URL = "http://localhost:3000/todo-items";
 
-const NewTodoItem = ({ onItemAdded }) => {
+export interface TodoItemProps {
+  onItemAdded: (item: TodoItemEntry) => void;
+}
+
+const NewTodoItem = ({ onItemAdded }: TodoItemProps): React.ReactElement => {
   const [content, setContent] = React.useState("");
 
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     fetch(API_URL, {
       method: "POST",
       headers: {

@@ -1,0 +1,12 @@
+{
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "testRegex": "(/tests/.*\\.test\\.ts?)$",
+  "collectCoverageFrom": ["src/**/*.ts"],
+  "setupFilesAfterEnv": [
+    "@universal-packages/core-jest",
+    "@universal-packages/core-typeorm-jest",
+    "@universal-packages/fetch-jest"
+  ]
+}

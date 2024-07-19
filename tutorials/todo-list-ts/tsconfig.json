@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "moduleResolution": "Node",
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "outDir": "./build",
+    "removeComments": false,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "target": "ES2020",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["./src", "./tests"],
+  "ts-node": {
+    "files": true
+  }
+}
