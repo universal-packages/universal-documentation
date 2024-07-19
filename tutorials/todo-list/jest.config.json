@@ -3,5 +3,10 @@
     "^.+\\.(js|jsx)$": "babel-jest"
   },
   "testRegex": "(/tests/.*\\.test\\.js?)$",
-  "collectCoverageFrom": ["src/**/*.js"]
+  "collectCoverageFrom": ["src/**/*.js"],
+  "setupFilesAfterEnv": [
+    "@universal-packages/core-jest",
+    "@universal-packages/core-typeorm-jest",
+    "@universal-packages/fetch-jest"
+  ]
 }
