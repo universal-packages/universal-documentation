@@ -40,6 +40,21 @@ npm install  @babel/plugin-proposal-decorators
 
 </js-only>
 
+<ts-only>
+
+Make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in your `tsconfig.json` file.
+
+```json:title=tsconfig.json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+```
+
+</ts-only>
+
 This is how our `TodoItem` entity should look like:
 
 ```js:title=src/entity/TodoItem.js
@@ -69,6 +84,34 @@ export class TodoItem extends BaseEntity {
 }
 ```
 
+```ts:title=src/entity/TodoItem.ts
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
+
+@Entity()
+export class TodoItem extends BaseEntity {
+  @PrimaryGeneratedColumn({ type: "bigint" })
+  public id: bigint;
+
+  @Column()
+  public content: string;
+  @Column()
+  public done: boolean;
+
+  @CreateDateColumn()
+  public createdAt: Date;
+  @UpdateDateColumn()
+  public updatedAt: Date;
+}
+
+```
+
 We have added a few columns to our entity:
 
 - `id`: This is the primary key of our entity, it is a unique identifier for each item in our list.
@@ -90,24 +133,24 @@ ucore console
 Once inside the console, we can import our entity and create a new instance of it. You can now write any JavaScript code you want to test.
 
 ```javascript
-const { TodoItem } = require("./src/entity/TodoItem")
+const { TodoItem } = require("./src/entity/TodoItem");
 ```
 
 Lets create a entry of our entity by instantiating it and setting the content and done properties and save it to the database.
 
 ```javascript
-const todoItem = new TodoItem()
+const todoItem = new TodoItem();
 
-todoItem.content = "Buy milk"
-todoItem.done = false
+todoItem.content = "Buy milk";
+todoItem.done = false;
 
-await todoItem.save()
+await todoItem.save();
 ```
 
 You can now query the database to see if the item was saved.
 
 ```javascript
-await TodoItem.find()
+await TodoItem.find();
 ```
 
 > Checkout the [TypeORM documentation](https://typeorm.io/#/) for more information about entities and how to interact with them.

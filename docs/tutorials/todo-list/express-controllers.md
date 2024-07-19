@@ -65,17 +65,7 @@ This is necessary to allow our frontend to make requests to our backend since th
 
 ## TodoItems Controller
 
-<js-only>
-
-Lets create our first controller for our TodoItems. Create a new file in the `src/controllers` directory called `TodoItems.controller.js`, the `.controller` suffix is a convention universal-core-express-controllers uses to identify controllers.
-
-</js-only>
-
-<ts-only>
-
-Lets create our first controller for our TodoItems. Create a new file in the `src/controllers` directory called `TodoItems.controller.ts`, the `.controller` suffix is a convention universal-core-express-controllers uses to identify controllers.
-
-</ts-only>
+Lets create our first controller for our TodoItems. Create a new file in the `src/controllers` directory called <js-only> `TodoItems.controller.js` </js-only><ts-only> `TodoItems.controller.ts` </ts-only>, the `.controller` suffix is a convention universal-core-express-controllers uses to identify controllers.
 
 This is how our `TodoItemsController` should look like:
 
@@ -91,6 +81,25 @@ import { TodoItem } from "../entity/TodoItem";
 export default class TodoItemsController extends BaseController {
   @Get()
   async index() {
+    const todoItems = await TodoItem.find();
+
+    return this.status("OK").json({ todoItems });
+  }
+}
+```
+
+```ts:title=src/controllers/TodoItems.controller.ts
+import {
+  BaseController,
+  Controller,
+  Get,
+} from "@universal-packages/express-controllers";
+import { TodoItem } from "../entity/TodoItem";
+
+@Controller("/todo-items")
+export default class TodoItemsController extends BaseController {
+  @Get()
+  public async index(): Promise<this> {
     const todoItems = await TodoItem.find();
 
     return this.status("OK").json({ todoItems });
@@ -132,6 +141,18 @@ Lets add a new method to our `TodoItemsController` to create a new todo item:
   }
 ```
 
+```ts
+  @Post({ bodyParser: "json" })
+  public async create(): Promise<this> {
+    const todoItem = new TodoItem();
+    todoItem.content = this.request.body.content;
+    todoItem.done = false;
+    await todoItem.save();
+
+    return this.status("CREATED").json({ todoItem });
+  }
+```
+
 Here we are using the `@Post` decorator to handle the `POST` request to the `/todo-items` endpoint. We are expecting the request body to have a `content` property, which we will use to create the new todo item.
 
 ## Update Todo Item
@@ -157,6 +178,25 @@ Lets add a new method to our `TodoItemsController` to update a todo item:
   }
 ```
 
+```ts
+  @Put("/:id", { bodyParser: "json" })
+  async update() {
+    try {
+      const todoItem = await TodoItem.findOneOrFail({
+        where: { id: this.request.params.id },
+      });
+      if (this.request.body.content)
+        todoItem.content = this.request.body.content;
+      if (this.request.body.done !== undefined) todoItem.done = this.request.body.done;
+      await todoItem.save();
+
+      return this.status("OK").json({ todoItem });
+    } catch (error) {
+      return this.status("NOT_FOUND");
+    }
+  }
+```
+
 Here we are using the `@Put` decorator to handle the `PUT` request to the `/todo-items/:id` endpoint. We are expecting the request body to have a `content` and/or `done` property, which we will use to update the todo item.
 
 ## Delete Todo Item
@@ -164,6 +204,22 @@ Here we are using the `@Put` decorator to handle the `PUT` request to the `/todo
 Lets add a new method to our `TodoItemsController` to delete a todo item:
 
 ```js
+  @Delete("/:id")
+  async delete() {
+    try {
+      const todoItem = await TodoItem.findOneOrFail({
+        where: { id: this.request.params.id },
+      });
+      await todoItem.remove();
+
+      return this.status("NO_CONTENT");
+    } catch (error) {
+      return this.status("NOT_FOUND");
+    }
+  }
+```
+
+```ts
   @Delete("/:id")
   async delete() {
     try {
@@ -234,6 +290,70 @@ export default class TodoItemsController extends BaseController {
 
   @Delete("/:id")
   async delete() {
+    try {
+      const todoItem = await TodoItem.findOneOrFail({
+        where: { id: this.request.params.id },
+      });
+      await todoItem.remove();
+
+      return this.status("NO_CONTENT");
+    } catch (error) {
+      return this.status("NOT_FOUND");
+    }
+  }
+}
+```
+
+```ts:title=src/controllers/TodoItems.controller.ts
+import {
+  BaseController,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+} from "@universal-packages/express-controllers";
+import { TodoItem } from "../entity/TodoItem";
+
+@Controller("/todo-items")
+export default class TodoItemsController extends BaseController {
+  @Get()
+  public async index(): Promise<this> {
+    const todoItems = await TodoItem.find();
+
+    return this.status("OK").json({ todoItems });
+  }
+
+  @Post({ bodyParser: "json" })
+  public async create(): Promise<this> {
+    const todoItem = new TodoItem();
+    todoItem.content = this.request.body.content;
+    todoItem.done = false;
+    await todoItem.save();
+
+    return this.status("CREATED").json({ todoItem });
+  }
+
+  @Put("/:id", { bodyParser: "json" })
+  public async update(): Promise<this> {
+    try {
+      const todoItem = await TodoItem.findOneOrFail({
+        where: { id: this.request.params.id },
+      });
+      if (this.request.body.content)
+        todoItem.content = this.request.body.content;
+      if (this.request.body.done !== undefined)
+        todoItem.done = this.request.body.done;
+      await todoItem.save();
+
+      return this.status("OK").json({ todoItem });
+    } catch (error) {
+      return this.status("NOT_FOUND");
+    }
+  }
+
+  @Delete("/:id")
+  public async delete(): Promise<this> {
     try {
       const todoItem = await TodoItem.findOneOrFail({
         where: { id: this.request.params.id },

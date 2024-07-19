@@ -11,4 +11,3 @@ Welcome to universal packages documentation! This site will focus in giving you 
 # Universal Core
 
 Even though you can use any package independently across the universal packages ecosystem, [universal-core](https://github.com/universal-packages/universal-core) is the main library across universal packages, it is a powerful and flexible framework to run you code in any kind ways, as a web server, as a data processing server, as a web socket server, as a file server, as a proxy server, as a web scraper, as a web crawler, as a web automation server, as a web testing server, as a web monitoring server, as a web analytics server, as a web security server, as game runner, as a synchronization server... you get the point.
-

@@ -54,17 +54,7 @@ Now that we have our frontend setup, lets start building our react app component
 
 ### TodoItem Component
 
-<js-only>
-
-Lets create a `TodoItem` component that will display a todo item. Create a new file `TodoItem.jsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</js-only>
-
-<ts-only>
-
-Lets create a `TodoItem` component that will display a todo item. Create a new file `TodoItem.tsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</ts-only>
+Lets create a `TodoItem` component that will display a todo item. Create a new file <js-only> `TodoItem.jsx` </js-only><ts-only> `TodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/TodoItem.jsx
 import React from "react";
@@ -108,24 +98,75 @@ const TodoItem = ({ item, onToggle, onDelete }) => {
 };
 
 export default TodoItem;
+```
 
+```tsx:title=src/react-apps/todo-list-frontend/src/components/TodoItem.tsx
+import React from "react";
+
+const API_URL = "http://localhost:3000/todo-items";
+
+export interface TodoItemEntry {
+  id: number;
+  content: string;
+  done: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface TodoItemProps {
+  item: TodoItemEntry;
+  onToggle: (item: TodoItemEntry) => void;
+  onDelete: (item: TodoItemEntry) => void;
+}
+
+const TodoItem = ({
+  item,
+  onToggle,
+  onDelete,
+}: TodoItemProps): React.ReactElement => {
+  const handleToggle = (): void => {
+    fetch(`${API_URL}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ done: !item.done }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onToggle({
+          ...data.todoItem,
+          createdAt: new Date(data.todoItem.createdAt),
+          updatedAt: new Date(data.todoItem.updatedAt),
+        });
+      });
+  };
+
+  const handleDelete = (): void => {
+    fetch(`${API_URL}/${item.id}`, {
+      method: "DELETE",
+    }).then(() => {
+      onDelete(item);
+    });
+  };
+
+  return (
+    <div className="todo-item">
+      <input type="checkbox" checked={item.done} onChange={handleToggle} />
+      <p>{item.content}</p>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
+};
+
+export default TodoItem;
 ```
 
 This component will display a todo item with a checkbox to toggle the done state and a delete button to delete the todo item. The `handleToggle` and `handleDelete` functions will make a request to the backend to update the todo item and delete the todo item respectively.
 
 ### NewTodoItem Component
 
-<js-only>
-
-Lets create a `NewTodoItem` component that will allow the user to create a new todo item. Create a new file `NewTodoItem.jsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</js-only>
-
-<ts-only>
-
-Lets create a `NewTodoItem` component that will allow the user to create a new todo item. Create a new file `NewTodoItem.tsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</ts-only>
+Lets create a `NewTodoItem` component that will allow the user to create a new todo item. Create a new file <js-only> `NewTodoItem.jsx` </js-only><ts-only> `NewTodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/NewTodoItem.jsx
 import React from "react";
@@ -145,7 +186,61 @@ const NewTodoItem = ({ onItemAdded }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        onItemAdded(data.todoItem);
+        onItemAdded({
+          ...data.todoItem,
+          createdAt: new Date(data.todoItem.createdAt),
+          updatedAt: new Date(data.todoItem.updatedAt),
+        });
+        setContent("");
+      });
+  };
+
+  return (
+    <div className="new-todo-item-form">
+      <input
+        type="text"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Whats needs to be done?"
+      />
+      <button onClick={handleAdd} disabled={!content}>
+        Add
+      </button>
+    </div>
+  );
+};
+
+export default NewTodoItem;
+```
+
+```tsx:title=src/react-apps/todo-list-frontend/src/components/NewTodoItem.tsx
+import React from "react";
+import { TodoItemEntry } from "./TodoItem";
+
+const API_URL = "http://localhost:3000/todo-items";
+
+export interface TodoItemProps {
+  onItemAdded: (item: TodoItemEntry) => void;
+}
+
+const NewTodoItem = ({ onItemAdded }: TodoItemProps): React.ReactElement => {
+  const [content, setContent] = React.useState("");
+
+  const handleAdd = (): void => {
+    fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onItemAdded({
+          ...data.todoItem,
+          createdAt: new Date(data.todoItem.createdAt),
+          updatedAt: new Date(data.todoItem.updatedAt),
+        });
         setContent("");
       });
   };
@@ -172,17 +267,7 @@ This component will display a form with an input field to enter the content of t
 
 ### TodoList Component
 
-<js-only>
-
-Lets create a `TodoList` component that will display a list of todo items as well as the `NewTodoItem` component. Create a new file `TodoList.jsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</js-only>
-
-<ts-only>
-
-Lets create a `TodoList` component that will display a list of todo items as well as the `NewTodoItem` component. Create a new file `TodoList.tsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
-
-</ts-only>
+Lets create a `TodoList` component that will display a list of todo items as well as the <js-only> `NewTodoItem` </js-only><ts-only> `TodoList.tsx` </ts-only>component. Create a new file `TodoList.jsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/TodoList.jsx
 import React from "react";
@@ -260,6 +345,82 @@ const TodoList = () => {
 export default TodoList;
 ```
 
+```tsx:title=src/react-apps/todo-list-frontend/src/components/TodoList.tsx
+import React from "react";
+import NewTodoItem from "./NewTodoItem";
+import TodoItem, { TodoItemEntry } from "./TodoItem";
+
+const API_URL = "http://localhost:3000/todo-items";
+
+const TodoList = (): React.ReactElement => {
+  const [todoItems, setTodoItems] = React.useState<TodoItemEntry[]>([]);
+
+  React.useEffect(() => {
+    fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => {
+        setTodoItems(
+          data.todoItems.map((item: TodoItemEntry) => ({
+            ...item,
+            updatedAt: new Date(item.updatedAt),
+            createdAt: new Date(item.createdAt),
+          }))
+        );
+      });
+  }, []);
+
+  const handleItemAdded = (item: TodoItemEntry): void => {
+    setTodoItems([item, ...todoItems]);
+  };
+
+  const handleItemToggle = (changedItem: TodoItemEntry): void => {
+    setTodoItems((items) =>
+      items.map((item) => (item.id === changedItem.id ? changedItem : item))
+    );
+  };
+
+  const handleItemDelete = (deletedItem: TodoItemEntry): void => {
+    setTodoItems((items) => items.filter((item) => item.id !== deletedItem.id));
+  };
+
+  return (
+    <div className="todo-list">
+      <NewTodoItem onItemAdded={handleItemAdded} />
+      <h2>Pending items</h2>
+      <div>
+        {todoItems
+          .filter((item) => !item.done)
+          .sort((a, b) => a.updatedAt.getTime() - b.updatedAt.getTime())
+          .map((item) => (
+            <TodoItem
+              key={item.id}
+              item={item}
+              onToggle={handleItemToggle}
+              onDelete={handleItemDelete}
+            />
+          ))}
+      </div>
+      <h2>Done items</h2>
+      <div>
+        {todoItems
+          .filter((item) => item.done)
+          .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+          .map((item) => (
+            <TodoItem
+              key={item.id}
+              item={item}
+              onToggle={handleItemToggle}
+              onDelete={handleItemDelete}
+            />
+          ))}
+      </div>
+    </div>
+  );
+};
+
+export default TodoList;
+```
+
 This component will display a list of todo items, sorted by done state and updated date. It will also display the `NewTodoItem` component to allow the user to create new todo items.
 
 ### App Component
@@ -267,10 +428,30 @@ This component will display a list of todo items, sorted by done state and updat
 Lets update our `App` component to display the `TodoList` component. Update the `App` component in the `src/react-apps/todo-list-frontend/src` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/App.jsx
+import React from "react";
 import "./App.css";
 import TodoList from "./components/TodoList";
 
-function App() {
+function App(): React.ReactElement {
+  return (
+    <div className="app">
+      <div className="wrapper">
+        <h1>Todo List</h1>
+        <TodoList />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+```tsx:title=src/react-apps/todo-list-frontend/src/App.tsx
+import React from "react";
+import "./App.css";
+import TodoList from "./components/TodoList";
+
+function App(): React.ReactElement {
   return (
     <div className="app">
       <div className="wrapper">
