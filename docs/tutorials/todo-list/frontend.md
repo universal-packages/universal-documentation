@@ -6,7 +6,7 @@ navigationId: todo-list-frontend
 
 # Frontend
 
-Now that we have our backend setup, its time to create our frontend. We will use React to create our frontend application, more specifically the officially supported way to create single-page applications with React, [Create React App](https://create-react-app.dev/). But of course universal-packages offers an abstraction to make it easier to integrate a create react app into your core application.
+Now that we have our backend set up, it's time to create our frontend. We will use React to create our frontend application, specifically the officially supported way to create single-page applications with React, [Create React App](https://create-react-app.dev/). Of course, universal-packages offers an abstraction to make it easier to integrate a Create React App into your core application.
 
 ## Core Create React App
 
@@ -16,7 +16,7 @@ First, we need to install the universal-core-create-react-app package:
 npm install @universal-packages/core-create-react-app
 ```
 
-Lets initialize a new create-react-app project by running the following command:
+Let's initialize a new Create React App project by running the following command:
 
 <js-only>
 
@@ -34,11 +34,11 @@ ucore initialize create-react-app --name todo-list-frontend --typescript
 
 </ts-only>
 
-This will create a new create-react-app project in the `.src/react-apps/todo-list-frontend` directory.
+This will create a new Create React App project in the `.src/react-apps/todo-list-frontend` directory.
 
 ## Run the frontend
 
-To run the frontend, we just run the core app included in the `core-create-react-app` package:
+To run the frontend, we just need to run the core app included in the `universal-core-create-react-app` package:
 
 ```bash
 ucore run create-react-app --name todo-list-frontend
@@ -46,15 +46,15 @@ ucore run create-react-app --name todo-list-frontend
 
 ## Multiple React Apps
 
-As you my figure out, you can create multiple react apps in the same project. Just run the `ucore initialize create-react-app` command again with a different `--name` parameter, and run them by also specifying the `--name` parameter in the `ucore run create-react-app` command.
+As you might figure out, you can create multiple React apps in the same project. Just run the `ucore initialize create-react-app` command again with a different `--name` parameter, and run them by specifying the `--name` parameter in the `ucore run create-react-app` command.
 
 ## React App
 
-Now that we have our frontend setup, lets start building our react app components that will communicate with our backend. We will create a `TodoList`, `TodoItem` and `NewTodoItem` components.
+Now that we have our frontend set up, let's start building our React app components that will communicate with our backend. We will create `TodoList`, `TodoItem`, and `NewTodoItem` components.
 
 ### TodoItem Component
 
-Lets create a `TodoItem` component that will display a todo item. Create a new file <js-only> `TodoItem.jsx` </js-only><ts-only> `TodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
+Let's create a `TodoItem` component that will display a todo item. Create a new file <js-only> `TodoItem.jsx` </js-only><ts-only> `TodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/TodoItem.jsx
 import React from "react";
@@ -162,11 +162,11 @@ const TodoItem = ({
 export default TodoItem;
 ```
 
-This component will display a todo item with a checkbox to toggle the done state and a delete button to delete the todo item. The `handleToggle` and `handleDelete` functions will make a request to the backend to update the todo item and delete the todo item respectively.
+This component will display a todo item with a checkbox to toggle the done state and a delete button to delete the todo item. The `handleToggle` and `handleDelete` functions will make requests to the backend to update and delete the todo item, respectively.
 
 ### NewTodoItem Component
 
-Lets create a `NewTodoItem` component that will allow the user to create a new todo item. Create a new file <js-only> `NewTodoItem.jsx` </js-only><ts-only> `NewTodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
+Let's create a `NewTodoItem` component that will allow the user to create a new todo item. Create a new file <js-only> `NewTodoItem.jsx` </js-only><ts-only> `NewTodoItem.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/NewTodoItem.jsx
 import React from "react";
@@ -267,7 +267,7 @@ This component will display a form with an input field to enter the content of t
 
 ### TodoList Component
 
-Lets create a `TodoList` component that will display a list of todo items as well as the <js-only> `NewTodoItem` </js-only><ts-only> `TodoList.tsx` </ts-only>component. Create a new file `TodoList.jsx` in the `src/react-apps/todo-list-frontend/src/components` directory:
+Let's create a `TodoList` component that will display a list of todo items as well as the <js-only> `NewTodoItem` </js-only><ts-only> `NewTodoItem` </ts-only> component. Create a new file <js-only> `TodoList.jsx` </js-only><ts-only> `TodoList.tsx` </ts-only> in the `src/react-apps/todo-list-frontend/src/components` directory:
 
 ```jsx:title=src/react-apps/todo-list-frontend/src/components/TodoList.jsx
 import React from "react";
@@ -421,7 +421,7 @@ const TodoList = (): React.ReactElement => {
 export default TodoList;
 ```
 
-This component will display a list of todo items, sorted by done state and updated date. It will also display the `NewTodoItem` component to allow the user to create new todo items.
+This component will display a list of todo items, sorted by done state and update date. It will also display the `NewTodoItem` component to allow the user to create new todo items.
 
 ### App Component
 
@@ -467,7 +467,7 @@ export default App;
 
 ### CSS
 
-Lets add some CSS to style our components. Lets modify the `App.css` file in the `src/react-apps/todo-list-frontend/src` directory:
+Let's add some CSS to style our components. Let's modify the `App.css` file in the `src/react-apps/todo-list-frontend/src` directory:
 
 ```css:title=src/react-apps/todo-list-frontend/src/App.css
 #root {
@@ -572,7 +572,7 @@ h2 {
 
 ### NPM run frontend
 
-Lets add a new script to our `package.json` to run the frontend:
+Let's add a new script to our `package.json` to run the frontend:
 
 ```json:title=package.json
 {
@@ -584,4 +584,4 @@ Lets add a new script to our `package.json` to run the frontend:
 
 ### Summary
 
-We have created a frontend application using React that will display a list of todo items, allow the user to create new todo items, toggle the done state of todo items and delete todo items. We have also styled the components using CSS.
+We have created a frontend application using React that displays a list of todo items, allows the user to create new todo items, toggle the done state of todo items, and delete todo items. We have also styled the components using CSS.

@@ -6,31 +6,31 @@ navigationId: todo-list-testing
 
 # Testing
 
-Lets write some tests for our TodoList core application. We will use the testing utility for universal-core apps [universal-core-jest](https://github.com/universal-packages/universal-core-jest) to help us write tests acceding the core application functionality.
+Let's write some tests for our TodoList core application. We will use the testing utility for universal-core apps, [universal-core-jest](https://github.com/universal-packages/universal-core-jest), to help us write tests accessing the core application functionality.
 
 ## Universal Core Jest
 
-Lets install the universal-core-jest package:
+Let's install the universal-core-jest package:
 
 ```bash
 npm install @universal-packages/core-jest --save-dev
 ```
 
-Universal packages also provide a fetch utility to test fetch request to our controllers:
+Universal-packages also provide a fetch utility to test fetch requests to our controllers:
 
 ```bash
 npm install @universal-packages/fetch-jest --save-dev
 ```
 
-Anf finally we alo need the testing utility for core-typeorm:
+And finally, we also need the testing utility for core-typeorm:
 
 ```bash
 npm install @universal-packages/core-typeorm-jest --save-dev
 ```
 
-We need to configure jest to make use of these utilities:
+We need to configure Jest to make use of these utilities:
 
-Lets add the following to our `jest.config.js` file:
+Let's add the following to our `jest.config.js` file:
 
 ```json
 {
@@ -44,7 +44,7 @@ Lets add the following to our `jest.config.js` file:
 
 <ts-only>
 
-Lets also make the global types for this tools available in our tests. Create a new file `tests/global.d.ts` with the following content:
+Let's also make the global types for these tools available in our tests. Create a new file `tests/global.d.ts` with the following content:
 
 ```ts:title=tests/global.d.ts
 /// <reference types="@universal-packages/core-jest" />
@@ -55,7 +55,7 @@ Lets also make the global types for this tools available in our tests. Create a 
 
 ## Testing the TodoItemsController
 
-Lets write some tests for the `TodoItemsController` class. For this we will run our app using the core-jest tools and doing the requests to the core application. This approach let us hit our app functionality exactly as in the real word usage.
+Let's write some tests for the `TodoItemsController` class. For this, we will run our app using the core-jest tools and make requests to the core application. This approach lets us test our app's functionality exactly as in real-world usage.
 
 Create a new file <js-only> `tests/controllers/TodoItemsController.test.js` </js-only><ts-only> `tests/controllers/TodoItemsController.test.ts` </ts-only> with the following content:
 
@@ -149,9 +149,9 @@ describe(TodoItemsController, (): void => {
 });
 ```
 
-This test will create two todo items in the database and then make a request using the universal-fetch-jest utility to the `todo-items` endpoint. After that it will check if the response is as expected using as well the `fResponse` and `fResponseBody` utilities from universal-fetch-jest.
+This test will create two todo items in the database and then make a request using the universal-fetch-jest utility to the `todo-items` endpoint. After that, it will check if the response is as expected using the `fResponse` and `fResponseBody` utilities from universal-fetch-jest.
 
-Now lets run the tests:
+Now let's run the tests:
 
 ```bash
 npm test
@@ -163,9 +163,9 @@ You should see the following error:
 FetchError: request to http://localhost:4001/todo-items failed, reason: connect ECONNREFUSED 127.0.0.1:4001
 ```
 
-This tell us we need the configure the express-controllers app to run on the port 400~ when running tests.
+This tells us we need to configure the express-controllers app to run on port 4000 when running tests.
 
-Lets add the following to `src/config/express-controller-app.yaml`:
+Let's add the following to `src/config/express-controllers-app.yaml`:
 
 ```yaml
 test:
@@ -173,13 +173,13 @@ test:
   port: <% 4000 + {{ JEST_WORKER_ID }} %>
 ```
 
-The `JEST_WORKER_ID` environment variable is provided by jest and is used to run multiple tests in parallel. Now when in parallel we will isolate out app for this test file in particular. Als remember in the Database section we configured the database to use a different database for each test also using the `JEST_WORKER_ID`.
+The `JEST_WORKER_ID` environment variable is provided by Jest and is used to run multiple tests in parallel. Now, when running tests in parallel, we will isolate our app for this particular test file. Also, remember that in the Database section, we configured the database to use a different database for each test, also using the `JEST_WORKER_ID`.
 
-Also I you can see you can evaluate expressions in the yaml file using the `<% %>` syntax. This is useful play with the environment variables.
+Additionally, you can evaluate expressions in the YAML file using the `<% %>` syntax. This is useful for working with environment variables.
 
 ### Testing the create endpoint
 
-Lets write a test for the create endpoint. Add the following test to the file:
+Let's write a test for the create endpoint. Add the following test to the file:
 
 ```js:title=tests/controllers/TodoItemsController.test.js
   describe("create", () => {
@@ -225,7 +225,7 @@ This test will create a new todo item using the `todo-items` endpoint and then c
 
 ### Testing the update endpoint
 
-Lets write a test for the update endpoint. Add the following test to the file:
+Let's write a test for the update endpoint. Add the following test to the file:
 
 ```js:title=tests/controllers/TodoItemsController.test.js
   describe("update", () => {

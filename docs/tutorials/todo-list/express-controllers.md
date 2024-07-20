@@ -6,7 +6,7 @@ navigationId: todo-list-express-controllers
 
 # Express Controllers
 
-Its time to create our actual API endpoints, to create, mark as complete and delete our todo items. We will create a new controller to handle these actions.
+It's time to create our actual API endpoints to create, mark as complete, and delete our todo items. We will create a new controller to handle these actions.
 
 ## Core Express Controllers
 
@@ -16,7 +16,7 @@ First, we need to install the universal-core-express-controllers package:
 npm install @universal-packages/core-express-controllers
 ```
 
-Lets initialize the universal-core-express-controllers package by running the following command:
+Let's initialize the universal-core-express-controllers package by running the following command:
 
 <js-only>
 
@@ -34,19 +34,19 @@ ucore initialize express-controllers --typescript
 
 </ts-only>
 
-Now we have the common express controllers directory structure in our project as well as our config file at `.src/config/express-controllers-app.yaml`.
+Now we have the common express controllers directory structure in our project, as well as our config file at `.src/config/express-controllers-app.yaml`.
 
-In the previous chapter when we initialized TypeORM we got the config file `typeorm-module.yaml`, the `module` suffix is doe to the fact that `core-typeorm` provides as `CoreModule` that can be used across the applications, but in the case of `core-express-controllers` it provides a `CoreApp` that runs a http server and make out controller's endpoints available. Thats why its configuration files reflects this difference in purpose.
+In the previous chapter, when we initialized TypeORM, we received the config file `typeorm-module.yaml`. The `module` suffix is due to the fact that `core-typeorm` provides a `CoreModule` that can be used across applications. In contrast, `core-express-controllers` provides a `CoreApp` that runs an HTTP server and makes our controller's endpoints available. That's why its configuration files reflect this difference in purpose.
 
 ## Configuring CORS
 
-Lets configure CORS in our `express-controllers-app.yaml` file:
+Let's configure CORS in our `express-controllers-app.yaml` file.
 
 ```yaml:title=src/config/express-controllers-app.yaml
 cors: true
 ```
 
-You can also configure the allowed origins, methods and headers:
+You can also configure the allowed origins, methods, and headers.
 
 ```yaml:title=src/config/express-controllers-app.yaml
 cors:
@@ -55,19 +55,19 @@ cors:
   headers: "Origin, X-Requested-With, Content-Type, Accept"
 ```
 
-and install the `cors` package:
+And install the `cors` package.
 
 ```bash
 npm install cors
 ```
 
-This is necessary to allow our frontend to make requests to our backend since they are running on different ports and that counts as a cross-origin request.
+This is necessary to allow our frontend to make requests to our backend since they are running on different ports, and that counts as a cross-origin request.
 
 ## TodoItems Controller
 
-Lets create our first controller for our TodoItems. Create a new file in the `src/controllers` directory called <js-only> `TodoItems.controller.js` </js-only><ts-only> `TodoItems.controller.ts` </ts-only>, the `.controller` suffix is a convention universal-core-express-controllers uses to identify controllers.
+Let's create our first controller for our TodoItems. Create a new file in the `src/controllers` directory called <js-only> `TodoItems.controller.js` </js-only><ts-only> `TodoItems.controller.ts` </ts-only>. The `.controller` suffix is a convention universal-core-express-controllers uses to identify controllers.
 
-This is how our `TodoItemsController` should look like:
+This is how our `TodoItemsController` should look:
 
 ```js:title=src/controllers/TodoItems.controller.js
 import {
@@ -107,7 +107,8 @@ export default class TodoItemsController extends BaseController {
 }
 ```
 
-We have created a new controller that will handle the `GET` request to the `/todo-items` endpoint. This controller will return all the todo items in the database. We can test this is working by visiting `http://localhost:3000/todo-items` in our browser.
+§
+We have created a new controller that will handle the `GET` request to the `/todo-items` endpoint. This controller will return all the todo items in the database. You can test this by visiting `http://localhost:3000/todo-items` in your browser.
 
 If you created some todo items in the previous chapter, you should see them in the response.
 
@@ -127,7 +128,7 @@ If you created some todo items in the previous chapter, you should see them in t
 
 ## Create Todo Item
 
-Lets add a new method to our `TodoItemsController` to create a new todo item:
+Let's add a new method to our `TodoItemsController` to create a new todo item:
 
 ```js
   @Post({ bodyParser: "json" })
@@ -153,11 +154,11 @@ Lets add a new method to our `TodoItemsController` to create a new todo item:
   }
 ```
 
-Here we are using the `@Post` decorator to handle the `POST` request to the `/todo-items` endpoint. We are expecting the request body to have a `content` property, which we will use to create the new todo item.
+Here we are using the `@Post` decorator to handle the `POST` request to the `/todo-items` endpoint. We expect the request body to have a `content` property, which we will use to create the new todo item.
 
 ## Update Todo Item
 
-Lets add a new method to our `TodoItemsController` to update a todo item:
+Let's add a new method to our `TodoItemsController` to update a todo item:
 
 ```js
   @Put("/:id", { bodyParser: "json" })
@@ -197,7 +198,7 @@ Lets add a new method to our `TodoItemsController` to update a todo item:
   }
 ```
 
-Here we are using the `@Put` decorator to handle the `PUT` request to the `/todo-items/:id` endpoint. We are expecting the request body to have a `content` and/or `done` property, which we will use to update the todo item.
+Here we are using the `@Put` decorator to handle the `PUT` request to the `/todo-items/:id` endpoint. We expect the request body to have a `content` and/or `done` property, which we will use to update the todo item.
 
 ## Delete Todo Item
 
@@ -235,7 +236,7 @@ Lets add a new method to our `TodoItemsController` to delete a todo item:
   }
 ```
 
-Here we are using the `@Delete` decorator to handle the `DELETE` request to the `/todo-items/:id` endpoint. We are expecting the request to have a `id` parameter, which we will use to delete the todo item.
+Here we are using the `@Delete` decorator to handle the `DELETE` request to the `/todo-items/:id` endpoint. We expect the request to have an `id` parameter, which we will use to delete the todo item.
 
 ## Final controller
 
@@ -370,13 +371,13 @@ export default class TodoItemsController extends BaseController {
 
 ## App watcher
 
-For development universal-core will watch for file changes and reload the application. After updating the controller feel free to just wait for it to reload.
+For development, universal-core will watch for file changes and reload the application. After updating the controller, feel free to just wait for it to reload.
 
-If you prefer not to have this feature enabled, take a look at `core.yaml` file in the root of your project.
+If you prefer not to have this feature enabled, take a look at the `core.yaml` file in the root of your project.
 
 ## NPM start
 
-This will be our main application, so it will be nice to have a script to start it. Lets add a new script to our `package.json`:
+This will be our main application, so it would be nice to have a script to start it. Let's add a new script to our `package.json`:
 
 ```json:title=package.json
 {
@@ -388,4 +389,4 @@ This will be our main application, so it will be nice to have a script to start 
 
 ## Summary
 
-Now we have the endpoints to create, update, delete and list todo items. In the next champer we will start creating the frontend to interact with these endpoints.
+Now we have the endpoints to create, update, delete, and list todo items. In the next chapter, we will start creating the frontend to interact with these endpoints.

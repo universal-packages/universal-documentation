@@ -4,9 +4,8 @@ title: Typescript
 navigationId: typescript
 ---
 
-# Typescript
+# TypeScript
 
-All universal packages are written in typescript, all packages are transpiled to javascript and the types are included in the package. This means that you can use typescript or Javascript in your universal core apps.
+All universal-packages are written in TypeScript. All packages are transpiled to JavaScript, and the types are included in the package. This means that you can use TypeScript or JavaScript in your universal-core apps.
 
-> This site examples and tutorials are offered in typescript and javascript, take a look at the controls with the **TS** and **JS** labels.
-
+> The examples and tutorials on this site are offered in both TypeScript and JavaScript. Take a look at the controls with the **TS** and **JS** labels.

@@ -6,11 +6,11 @@ navigationId: todo-list-database-models
 
 # Database Models
 
-For our TodoList application, we want to be able to store the items in our list in our database, lets create a new model to represent the items in our list. Or as TypeORM calls it, an entity.
+For our TodoList application, we want to be able to store the items in our list in our database. Let's create a new model to represent the items in our list, or as TypeORM calls it, an entity.
 
 ## Create a new entity
 
-Core typeorm provide the same functionality as the typeorm package cli, lets use the entity generator to create a new entity for our TodoItem.
+core-typeorm provides the same functionality as the TypeORM package CLI. Let's use the entity generator to create a new entity for our TodoItem.
 
 ```bash
 ucore exec typeorm entity:create --name TodoItem
@@ -20,9 +20,9 @@ This will create a new file in the `src/entity` directory called `TodoItem.ts`.
 
 <js-only>
 
-Typeorm is optimized for typescript so once generated if you are using javascript you will need to change the file extension to `.js` and remove the types from the file.
+TypeORM is optimized for TypeScript, so once generated, if you are using JavaScript, you will need to change the file extension to `.js` and remove the types from the file.
 
-we need to enable the `@babel/plugin-proposal-decorators` in your `.babelrc` file.
+You will need to enable the `@babel/plugin-proposal-decorators` in your `.babelrc` file.
 
 ```shell
 npm install  @babel/plugin-proposal-decorators
@@ -55,7 +55,7 @@ Make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in your
 
 </ts-only>
 
-This is how our `TodoItem` entity should look like:
+This is how our `TodoItem` entity should look:
 
 ```js:title=src/entity/TodoItem.js
 import {
@@ -114,17 +114,17 @@ export class TodoItem extends BaseEntity {
 
 We have added a few columns to our entity:
 
-- `id`: This is the primary key of our entity, it is a unique identifier for each item in our list.
+- `id`: This is the primary key of our entity; it is a unique identifier for each item in our list.
 - `content`: This is the text of the item in our list.
 - `done`: This is a boolean value that represents if the item is done or not.
 - `createdAt`: This is a timestamp that represents when the item was created.
 - `updatedAt`: This is a timestamp that represents when the item was last updated.
 
-We also have extended our entity from `BaseEntity`, this will give us access to some helper methods that we can use to interact with our database.
+We have also extended our entity from `BaseEntity`, which will give us access to some helper methods that we can use to interact with our database.
 
 ## Core console
 
-Universal Core provides a way for you tests code without having to write a test file or print statements. Lets enter the universal core console and test our new entity.
+universal-core provides a way for you to test code without having to write a test file or print statements. Let's enter the universal-core console and test our new entity.
 
 ```bash
 ucore console
@@ -136,7 +136,7 @@ Once inside the console, we can import our entity and create a new instance of i
 const { TodoItem } = require("./src/entity/TodoItem");
 ```
 
-Lets create a entry of our entity by instantiating it and setting the content and done properties and save it to the database.
+Let's create an entry for our entity by instantiating it, setting the `content` and `done` properties, and saving it to the database.
 
 ```javascript
 const todoItem = new TodoItem();
@@ -153,4 +153,4 @@ You can now query the database to see if the item was saved.
 await TodoItem.find();
 ```
 
-> Checkout the [TypeORM documentation](https://typeorm.io/#/) for more information about entities and how to interact with them.
+> Check out the [TypeORM documentation](https://typeorm.io/#/) for more information about entities and how to interact with them.
